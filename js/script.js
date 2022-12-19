@@ -3,10 +3,14 @@ const createCell = (size, content) =>
   (cell = `<div class="cell cell-${size}">${content}</div>`);
 
 //Creo funzione per il click
-const getCliccable = (element) => {
+const getCliccableOneTime = (element, listElement) => {
   element.addEventListener("click", function () {
-    element.classList.toggle("clicked");
-    console.log(element.textContent);
+    const content = element.innerText;
+    element.classList.add("clicked");
+    if (!listElement.includes(content)) {
+      console.log(content);
+      listElement.push(content);
+    }
   });
 };
 
@@ -18,6 +22,7 @@ const getRandomNumbersNotDuplicates = (min = 1, max = 100, numberList) => {
   do {
     randomNumber = Math.floor(Math.random() * (max - min)) + min;
   } while (numberList.includes(randomNumber));
+  numberList.push(randomNumber);
   return randomNumber;
 };
 
@@ -29,6 +34,9 @@ const levelElement = document.getElementById("level");
 //Creo funzione al click del bottone
 button.addEventListener("click", function () {
   const level = levelElement.value;
+
+  //Creo punteggio utente
+  let clickedCells = [];
 
   let cellsNumber;
   switch (level) {
@@ -55,15 +63,20 @@ button.addEventListener("click", function () {
   //Genero numeri da inserire nelle bombe
   for (let i = 0; i < 16; i++) {
     const randomNumber = getRandomNumbersNotDuplicates(1, cellsNumber, bombs);
-    bombs.push(randomNumber);
   }
 
   console.log(bombs);
-
+  let userScore = 0;
   const cellsElement = document.querySelectorAll("#table .cell");
   //Modifico colonne al click
   for (let i = 0; i < cellsElement.length; i++) {
     const selectedCell = cellsElement[i];
-    getCliccable(selectedCell);
+    selectedCell.addEventListener("click", function () {
+      if (!selectedCell.classList.contains("clicked")) {
+        userScore++;
+        console.log(userScore);
+      }
+    });
+    getCliccableOneTime(selectedCell, clickedCells);
   }
 });
