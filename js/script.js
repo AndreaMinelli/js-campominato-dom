@@ -11,6 +11,20 @@ const getCliccableOneTime = (element, listElement) => {
   }
 };
 
+//Creo funzione per mostrare tutto
+const showAll = (element, list) => {
+  for (let i = 0; i < element.length; i++) {
+    const currentElement = element[i];
+    const content = parseInt(currentElement.innerText);
+    currentElement.classList.add("clicked");
+    if (list.includes(content)) {
+      currentElement.classList.add("bomb");
+    } else {
+      currentElement.classList.add("right");
+    }
+  }
+};
+
 //Creo funzione per generare numeri random unici in un range
 const getRandomNumbersNotDuplicates = (min = 1, max = 100, numberList) => {
   max++;
@@ -84,6 +98,7 @@ button.addEventListener("click", function () {
         if (bombs.includes(cellValue)) {
           alert(`Hai perso, il tuo punteggio è di: ${userScore}`);
           selectedCell.classList.add("bomb");
+          showAll(cellsElement, bombs);
           canContinue = false;
         } else {
           selectedCell.classList.add("right");
@@ -93,7 +108,6 @@ button.addEventListener("click", function () {
               `COMPLIMENTI! Hai selezionatu tutte le ${totalRight} caselle corrette!`
             );
             canContinue = false;
-            return;
           }
         }
       }
