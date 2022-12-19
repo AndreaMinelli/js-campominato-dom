@@ -107,6 +107,7 @@ button.addEventListener("click", function () {
             alert(
               `COMPLIMENTI! Hai selezionatu tutte le ${totalRight} caselle corrette!`
             );
+            showAll(cellsElement, bombs);
             canContinue = false;
           }
         }
