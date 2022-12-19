@@ -67,8 +67,6 @@ button.addEventListener("click", function () {
     getRandomNumbersNotDuplicates(1, cellsNumber, bombs);
   }
 
-  console.log(bombs.sort());
-
   const cellsElement = document.querySelectorAll("#table .cell");
 
   //Creo elenco celle cliccate
@@ -100,7 +98,6 @@ button.addEventListener("click", function () {
           if (!clickedCells.includes(cellValue)) {
             userScore++;
             clickedCells.push(cellValue);
-            console.log(userScore);
             if (userScore === totalRight) {
               alert(
                 `COMPLIMENTI! Hai selezionatu tutte le ${totalRight} caselle corrette!`
