@@ -2,12 +2,16 @@
 const createCell = (content) => (cell = `<div class="cell">${content}</div>`);
 
 //Creo funzione per il click
-const getCliccableOneTime = (element, listElement) => {
-  const content = element.innerText;
-  element.classList.add("clicked");
-  if (!listElement.includes(content)) {
-    listElement.push(content);
-  }
+const getClicked = (element) => element.classList.add("clicked");
+
+//Creo funzione per generare numeri random unici in un range
+const getRandomNumbersNotDuplicates = (min = 1, max = 100, numberList) => {
+  max++;
+  let randomNumber;
+  do {
+    randomNumber = Math.floor(Math.random() * (max - min)) + min;
+  } while (numberList.includes(randomNumber));
+  numberList.push(randomNumber);
 };
 
 //Creo funzione per mostrare tutto
@@ -22,17 +26,6 @@ const showAll = (element, list) => {
       currentElement.classList.add("right");
     }
   }
-};
-
-//Creo funzione per generare numeri random unici in un range
-const getRandomNumbersNotDuplicates = (min = 1, max = 100, numberList) => {
-  max++;
-  let randomNumber;
-  do {
-    randomNumber = Math.floor(Math.random() * (max - min)) + min;
-  } while (numberList.includes(randomNumber));
-  numberList.push(randomNumber);
-  return randomNumber;
 };
 
 //Targhettizzo gli elementi in pagina
@@ -69,7 +62,7 @@ button.addEventListener("click", function () {
   //Creo array per lista bombe
   let bombs = [];
 
-  //Genero numeri da inserire nelle bombe
+  //Genero numeri da inserire nella lista bombe
   for (let i = 0; i < 16; i++) {
     getRandomNumbersNotDuplicates(1, cellsNumber, bombs);
   }
@@ -95,7 +88,7 @@ button.addEventListener("click", function () {
         return;
       } else {
         if (!selectedCell.classList.contains("clicked")) {
-          getCliccableOneTime(selectedCell, clickedCells);
+          getClicked(selectedCell);
         }
         if (bombs.includes(cellValue)) {
           alert(`Hai perso, il tuo punteggio è di: ${userScore}`);
@@ -104,13 +97,17 @@ button.addEventListener("click", function () {
           canContinue = false;
         } else {
           selectedCell.classList.add("right");
-          userScore++;
-          if (userScore === totalRight) {
-            alert(
-              `COMPLIMENTI! Hai selezionatu tutte le ${totalRight} caselle corrette!`
-            );
-            showAll(cellsElement, bombs);
-            canContinue = false;
+          if (!clickedCells.includes(cellValue)) {
+            userScore++;
+            clickedCells.push(cellValue);
+            console.log(userScore);
+            if (userScore === totalRight) {
+              alert(
+                `COMPLIMENTI! Hai selezionatu tutte le ${totalRight} caselle corrette!`
+              );
+              showAll(cellsElement, bombs);
+              canContinue = false;
+            }
           }
         }
       }
