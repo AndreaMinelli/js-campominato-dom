@@ -7,7 +7,6 @@ const getCliccableOneTime = (element, listElement) => {
   const content = element.innerText;
   element.classList.add("clicked");
   if (!listElement.includes(content)) {
-    console.log(content);
     listElement.push(content);
   }
 };
@@ -59,7 +58,7 @@ button.addEventListener("click", function () {
     getRandomNumbersNotDuplicates(1, cellsNumber, bombs);
   }
 
-  console.log(bombs);
+  console.log(bombs.sort());
 
   const cellsElement = document.querySelectorAll("#table .cell");
 
@@ -68,6 +67,7 @@ button.addEventListener("click", function () {
   //Creo variabile per punteggio
   let userScore = 0;
   let canContinue = true;
+  const totalRight = cellsElement.length - 16;
 
   //Modifico colonne al click
   for (let i = 0; i < cellsElement.length; i++) {
@@ -88,6 +88,13 @@ button.addEventListener("click", function () {
         } else {
           selectedCell.classList.add("right");
           userScore++;
+          if (userScore === totalRight) {
+            alert(
+              `COMPLIMENTI! Hai selezionatu tutte le ${totalRight} caselle corrette!`
+            );
+            canContinue = false;
+            return;
+          }
         }
       }
     });
