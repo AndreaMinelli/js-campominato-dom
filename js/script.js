@@ -4,14 +4,12 @@ const createCell = (size, content) =>
 
 //Creo funzione per il click
 const getCliccableOneTime = (element, listElement) => {
-  element.addEventListener("click", function () {
-    const content = element.innerText;
-    element.classList.add("clicked");
-    if (!listElement.includes(content)) {
-      console.log(content);
-      listElement.push(content);
-    }
-  });
+  const content = element.innerText;
+  element.classList.add("clicked");
+  if (!listElement.includes(content)) {
+    console.log(content);
+    listElement.push(content);
+  }
 };
 
 //Creo funzione per generare numeri random unici in un range
@@ -73,10 +71,10 @@ button.addEventListener("click", function () {
     const selectedCell = cellsElement[i];
     selectedCell.addEventListener("click", function () {
       if (!selectedCell.classList.contains("clicked")) {
+        getCliccableOneTime(selectedCell, clickedCells);
         userScore++;
         console.log(userScore);
       }
     });
-    getCliccableOneTime(selectedCell, clickedCells);
   }
 });
