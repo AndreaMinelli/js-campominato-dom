@@ -1,0 +1,106 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Utils */
+
+.container{
+    max-width: 1080px;
+    margin: 0 auto;
+}
+
+/* Generals */
+
+body{
+    font-family: sans-serif;
+}
+
+header{
+    height: 80px;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+main{
+    background-color: rgb(127,255,212);
+    min-height: 400px;
+    padding: 3rem;
+}
+
+footer{
+    height: 50px;
+    line-height: 50px;
+    padding: 0 1rem;
+}
+
+img{
+    max-width: 100%;
+}
+
+
+/* Header */
+
+.header-left, .header-right{
+    display: flex;
+    align-items: center;
+}
+
+.header-left figure{
+    width: 50px;
+    margin-right: 1rem;
+}
+
+.header-right #level{
+    width: 150px;
+    padding: 0rem 2rem 0 0;
+    margin: 0 0.2rem;
+}
+
+.header-right button{
+    font-weight: 600;
+    padding: 0.2rem 2rem;
+    cursor: pointer;
+}
+
+/* Table */
+
+#table {
+    width: 600px;
+    height: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#table .cell{
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+#table .cell.cell-10{
+    width: calc(100% / 10);
+    height: calc(100% / 10);
+}
+
+#table .cell.cell-9{
+    width: calc(100% / 9);
+    height: calc(100% / 9);
+}
+
+#table .cell.cell-7{
+    width: calc(100% / 7);
+    height: calc(100% / 7);
+}
+
+#table .cell.clicked{
+    background-color: dodgerblue;
+}
+
