@@ -1,6 +1,5 @@
 //Creo funzione per generare le celle
-const createCell = (size, content) =>
-  (cell = `<div class="cell cell-${size}">${content}</div>`);
+const createCell = (content) => (cell = `<div class="cell">${content}</div>`);
 
 //Creo funzione per il click
 const getCliccableOneTime = (element, listElement) => {
@@ -40,6 +39,7 @@ const getRandomNumbersNotDuplicates = (min = 1, max = 100, numberList) => {
 const table = document.getElementById("table");
 const button = document.getElementById("button");
 const levelElement = document.getElementById("level");
+const root = document.querySelector(":root");
 
 //Creo funzione al click del bottone
 button.addEventListener("click", function () {
@@ -58,9 +58,11 @@ button.addEventListener("click", function () {
       break;
   }
 
+  root.style.setProperty("--cell-size", level);
+
   let cells = "";
   for (let i = 1; i <= cellsNumber; i++) {
-    cells += createCell(level, i);
+    cells += createCell(i);
   }
   table.innerHTML = cells;
 

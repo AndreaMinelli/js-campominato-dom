@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+:root{
+    --cell-size : 10;
+}
+
 /* Utils */
 
 .container{
@@ -84,20 +88,8 @@ img{
     align-items: center;
     justify-content: center;
     cursor: pointer;
-}
-#table .cell.cell-10{
-    width: calc(100% / 10);
-    height: calc(100% / 10);
-}
-
-#table .cell.cell-9{
-    width: calc(100% / 9);
-    height: calc(100% / 9);
-}
-
-#table .cell.cell-7{
-    width: calc(100% / 7);
-    height: calc(100% / 7);
+    width: calc(100% / var(--cell-size));
+    height: calc(100% / var(--cell-size));
 }
 
 #table .cell.clicked.right{
