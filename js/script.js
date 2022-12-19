@@ -13,7 +13,6 @@ const getCliccableOneTime = (element, listElement) => {
 };
 
 //Creo funzione per generare numeri random unici in un range
-
 const getRandomNumbersNotDuplicates = (min = 1, max = 100, numberList) => {
   max++;
   let randomNumber;
@@ -32,9 +31,6 @@ const levelElement = document.getElementById("level");
 //Creo funzione al click del bottone
 button.addEventListener("click", function () {
   const level = levelElement.value;
-
-  //Creo punteggio utente
-  let clickedCells = [];
 
   let cellsNumber;
   switch (level) {
@@ -60,20 +56,39 @@ button.addEventListener("click", function () {
 
   //Genero numeri da inserire nelle bombe
   for (let i = 0; i < 16; i++) {
-    const randomNumber = getRandomNumbersNotDuplicates(1, cellsNumber, bombs);
+    getRandomNumbersNotDuplicates(1, cellsNumber, bombs);
   }
 
   console.log(bombs);
-  let userScore = 0;
+
   const cellsElement = document.querySelectorAll("#table .cell");
+
+  //Creo elenco celle cliccate
+  let clickedCells = [];
+  //Creo variabile per punteggio
+  let userScore = 0;
+  let canContinue = true;
+
   //Modifico colonne al click
   for (let i = 0; i < cellsElement.length; i++) {
     const selectedCell = cellsElement[i];
+    const cellValue = parseInt(selectedCell.innerText);
+
     selectedCell.addEventListener("click", function () {
-      if (!selectedCell.classList.contains("clicked")) {
-        getCliccableOneTime(selectedCell, clickedCells);
-        userScore++;
-        console.log(userScore);
+      if (!canContinue) {
+        return;
+      } else {
+        if (!selectedCell.classList.contains("clicked")) {
+          getCliccableOneTime(selectedCell, clickedCells);
+        }
+        if (bombs.includes(cellValue)) {
+          alert(`Hai perso, il tuo punteggio è di: ${userScore}`);
+          selectedCell.classList.add("bomb");
+          canContinue = false;
+        } else {
+          selectedCell.classList.add("right");
+          userScore++;
+        }
       }
     });
   }

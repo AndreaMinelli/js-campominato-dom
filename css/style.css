@@ -100,7 +100,11 @@ img{
     height: calc(100% / 7);
 }
 
-#table .cell.clicked{
+#table .cell.clicked.right{
     background-color: dodgerblue;
+}
+
+#table .cell.clicked.bomb{
+    background-color: red;
 }
 
